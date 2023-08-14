@@ -7,6 +7,9 @@ const cors = require('cors');
 const {fileURLToPath} = require('url');
 const path = require('path');
 const multer = require('multer');
+const userRoute = require('./routes/User');
+const taskRoute = require('./routes/Task');
+const { Register } = require('./controllers/User.js');
 
 const _dirname = path.dirname(__filename); // Use __dirname directly
 
@@ -24,8 +27,18 @@ const storage = multer.diskStorage({
         cb(null,picturePath)
     }
 })
-
 const upload = multer({storage})
+app.use.use('/auth/register', upload.single('picture',Register))
+app.use('/auth',userRoute);
+app.use('task',taskRoute)
+
+dotenv.config()
+
+app.use((err,req,res,next)=>{
+const status = err.status || 500
+const message = err.message || 'Something went wrong'
+return res.status(status).json(message)
+})
 
 const PORT = process.env.PORT || 5500;
 
