@@ -12,7 +12,11 @@ const UserSchema = moongose.Schema({
     picturePath:{
         type : String,
         required : true,
+    },
+    password:{
+        type : String,
+        required : true,
     }
 },{timestamps : true})
 
-export default moongose.model('User', UserSchema)
+module.exports = moongose.model('User', UserSchema)

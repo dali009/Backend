@@ -28,7 +28,7 @@ const storage = multer.diskStorage({
     }
 })
 const upload = multer({storage})
-app.use.use('/auth/register', upload.single('picture',Register))
+app.use('/auth/register',upload.single('picture'),Register)
 app.use('/auth',userRoute);
 app.use('task',taskRoute)
 
@@ -44,5 +44,5 @@ const PORT = process.env.PORT || 5500;
 
 connection();
 app.listen(PORT, ()=>{
-    console.log('Server is running on port 5000');
+    console.log(`Server is running on port ${PORT}`);
 })
