@@ -11,7 +11,7 @@ const UserSchema = moongose.Schema({
     },
     picturePath:{
         type : String,
-        required : true
+        required : true,
     }
 },{timestamps : true})
 
