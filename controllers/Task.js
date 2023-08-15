@@ -1,6 +1,11 @@
+const Task = require('../models/Task')
 exports.createTask = async(req,res,next)=>{
     try {
-        
+        const {id} = req.user
+        const completionDate = new Date(req.body.date)
+        const task = new Task({...req.body, userId: id, date:completionDate})
+        const saveTask = await task.save()
+        return res.status(201).json({task: saveTask})
     } catch (err) {
         next(err)
     }
@@ -8,6 +13,7 @@ exports.createTask = async(req,res,next)=>{
 
 exports.updateTask = async(req,res,next)=>{
     try {
+        const {id} = req.params
         
     } catch (err) {
         next(err)

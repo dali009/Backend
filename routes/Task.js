@@ -1,12 +1,12 @@
-const express = require('express')
+const express = require('express');
 const router = express.Router()
 const taskController = require('../controllers/Task')
-const { verifiyToken } = require('../middleware/verify')
+const verifiyToken = require('../middleware/verify')
 
-router.post('/create',verifiyToken,taskController.createTask)
-router.put('/:id',verifiyToken,taskController.updateTask)
-router.get('/:id',verifiyToken,taskController.getTask)
-router.get('/tasks',verifiyToken,taskController.getAllTasks)
-router.delete('/:id',verifiyToken,taskController.deleteTask)
+router.post('/create',verifiyToken.verifyToken,taskController.createTask)
+router.put('/:id',verifiyToken.verifyToken,taskController.updateTask)
+router.get('/:id',verifiyToken.verifyToken,taskController.getTask)
+router.get('/tasks',verifiyToken.verifyToken,taskController.getAllTasks)
+router.delete('/:id',verifiyToken.verifyToken,taskController.deleteTask)
 
-module.exports = router
+module.exports = router ; 

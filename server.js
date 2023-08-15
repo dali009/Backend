@@ -30,7 +30,7 @@ const storage = multer.diskStorage({
 const upload = multer({storage})
 app.use('/auth/register',upload.single('picture'),Register)
 app.use('/auth',userRoute);
-app.use('task',taskRoute)
+app.use('/task',taskRoute)
 
 dotenv.config()
 
