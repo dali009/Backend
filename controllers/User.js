@@ -15,21 +15,27 @@ exports.Register = async(req,res,next)=>{
     }
 }
 
-exports.Login = async(req,res,next)=>{
+exports.Login = async (req, res, next) => {
     try {
-        const {email,password} = req.body
-        const isUser = await User.findOne({email})
-        if(!isUser) return res.status(404).json("User not found")
-        const isMatched = await bcryprt.compare(password, isUser.password)
-        if(!isMatched){
-            return res.status(401).json("wrong credentials")
+        const { email, password } = req.body;
+        const isUser = await User.findOne({ email });
+
+        if (!isUser) {
+            return res.status(404).json("User not found");
         }
-        const token = jwt.sign({id: isUser._id},process.env.SECRET_KEY)
-        if(isUser){
-            const {password, ...userRes} = isUser._doc
-            return res.status(201).cookie('token',{token}, {httpOnly: true}).json({user: userRes})
+
+        const isMatched = await bcryprt.compare(password, isUser.password);
+        if (!isMatched) {
+            return res.status(401).json("Wrong credentials");
+        }
+
+        const token = jwt.sign({ id: isUser._id }, process.env.SECRET_KEY);
+        if (isUser) {
+            const { password, ...userRes } = isUser._doc;
+            res.cookie('token', token, { httpOnly: true }); // Set the cookie
+            return res.status(201).json({ user: userRes });
         }
     } catch (err) {
-        next(err)
+        next(err);
     }
-}
+};

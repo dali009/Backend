@@ -28,4 +28,4 @@ const TaskSchema = moongose.Schema({
     }
 },{timestamps : true})
 
-export default moongose.model('Task',TaskSchema);
+module.exports = moongose.model('Task', TaskSchema)
